@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.epsilon.vtr.model.CustomerInfo;
 import com.epsilon.vtr.model.Employee;
+import com.epsilon.vtr.model.ProductOrder;
 import com.epsilon.vtr.service.EmployeeService;
+import com.epsilon.vtr.service.OrderService;
 import com.epsilon.vtr.vo.EmployeeVO;
 import com.epsilon.vtr.vo.FileBucket;
 
@@ -31,6 +34,9 @@ public class AppController {
 
     @Autowired
     MessageSource messageSource;
+
+    @Autowired
+    OrderService orderService;
 
     /*
      * This method will list all existing employees.
@@ -53,7 +59,23 @@ public class AppController {
             employeeVOList.add(empVO);
         });
         model.addAttribute("employees", employeeVOList);
+
+        orderService.sendOrderConfirmation(getDummyOrder());
         return "allemployees";
+    }
+
+    public static ProductOrder getDummyOrder(){
+        ProductOrder order = new ProductOrder();
+        order.setOrderId("1111");
+        order.setProductName("Thinkpad T510");
+        order.setStatus("confirmed");
+
+        CustomerInfo customerInfo = new CustomerInfo();
+        customerInfo.setName("Websystique Admin");
+        customerInfo.setAddress("WallStreet");
+        customerInfo.setEmail("bsvmadhav@gmail.com");
+        order.setCustomerInfo(customerInfo);
+        return order;
     }
 
     /*
