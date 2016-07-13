@@ -18,12 +18,15 @@ import org.opencv.objdetect.CascadeClassifier;
 
 public class VirtualTrialServiceImpl implements VirtualTrialService {
 
+    public static void main(String[] args) {
+        VirtualTrialServiceImpl v = new VirtualTrialServiceImpl();
+        v.virtualTrial();
+    }
     @Override
     public void virtualTrial() {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        CascadeClassifier faceDetector = new CascadeClassifier("/haarcascade_frontalface_alt.xml");
-        Mat image = Highgui
-                .imread("C:\\Users\\asabtharishi\\Desktop\\files\\files\\veera.jpg");
+        CascadeClassifier faceDetector = new CascadeClassifier("haarcascade_frontalface_alt.xml");
+        Mat image = Highgui.imread("C:\\Users\\vbora\\Desktop\\vtr\\venkat.jpg");
 
         MatOfRect detections = new MatOfRect();
         faceDetector.detectMultiScale(image, detections);
@@ -42,13 +45,13 @@ public class VirtualTrialServiceImpl implements VirtualTrialService {
 
     private void doAction(int x, int y){
         try{
-            File path = new File("C:\\Users\\asabtharishi\\Desktop\\files\\files\\");
+            File path = new File("C:\\Users\\vbora\\Desktop\\vtr\\");
 
             // load source images
 
-            BufferedImage image = ImageIO.read(new File("C:\\Users\\asabtharishi\\Desktop\\files\\files\\veera.png"));
+            BufferedImage image = ImageIO.read(new File("C:\\Users\\vbora\\Desktop\\vtr\\venkat.jpg"));
 
-            BufferedImage overlay = ImageIO.read(new File(path, "new.jpg"));
+            BufferedImage overlay = ImageIO.read(new File(path, "t-shirt.jpg"));
 
             //image = createResizedCopy(image, 691, 720, false);
             overlay = createResizedCopy(overlay, x+y+((x+y)/2), x+y+((x+y)/4), false);
@@ -69,7 +72,7 @@ public class VirtualTrialServiceImpl implements VirtualTrialService {
 
             // Save as new image
 
-            ImageIO.write(combined, "JPG", new File(path, "combined.j"));
+            ImageIO.write(combined, "JPG", new File(path, "combined.jpg"));
         }catch(Exception e)
         {
             System.out.println("exception ");
