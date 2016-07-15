@@ -23,6 +23,7 @@ App.controller('TrailRoomController', ['$scope', 'TrailService', function($scope
                       self.fetchAllTrailRoomItems,
                               function(errResponse){
                                    console.error('Error while Generation Trail Room.');
+                                   self.fetchAllTrailRoomItems
                               }
                   );
           };
@@ -33,6 +34,7 @@ App.controller('TrailRoomController', ['$scope', 'TrailService', function($scope
                               self.fetchAllTrailRoomItems,
                               function(errResponse){
                                    console.error('Error while sending Email.');
+                                   self.fetchAllTrailRoomItems
                               }
                   );
           };

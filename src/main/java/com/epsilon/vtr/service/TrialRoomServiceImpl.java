@@ -280,9 +280,11 @@ public class TrialRoomServiceImpl implements TrialRoomService {
     @Override
     public void sendEmail(TrailRoom trailRoom) throws UnsupportedEncodingException, MessagingException {
         TrailRoomVO trailRoomVO = new TrailRoomVO();
-        trailRoomVO.setFirstName("Sri");
-        trailRoomVO.setFirstName("Bora");
-        trailRoomVO.setEmailAddress("sri.bora@gmail.com");
+        Profile profile = profileService.findById(trailRoom.getProfileId());
+        trailRoomVO.setFirstName(profile.getFirstName());
+        trailRoomVO.setLastName(profile.getLastName());
+        trailRoomVO.setEmailAddress(profile.getEmailAddress());
+        trailRoomVO.setProfileTrailPhoto(trailRoom.getTrailProfilePhoto());
         byte[] encodeBase64 = Base64.encodeBase64(trailRoom.getTrailProfilePhoto());
         String base64Encoded = new String(encodeBase64, "UTF-8");
         trailRoomVO.setBase64EncodedForProfileTrailPhoto(base64Encoded);

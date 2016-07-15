@@ -54,7 +54,7 @@ App.controller('ItemRestController', ['$scope', 'InventoryService', function($sc
           self.submit = function() {
               if(self.item.id==null){
                   console.log('Saving New Item', self.item);
-                  self.createItem(self.profile);
+                  self.createItem(self.item);
               }else{
                   self.updateItem(self.item, self.item.id);
                   console.log('Item updated with id ', self.item.id);

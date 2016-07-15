@@ -25,7 +25,7 @@ import com.epsilon.vtr.vo.FileBucket;
 import com.epsilon.vtr.vo.ItemVO;
 
 @Controller
-@RequestMapping("/inventory")
+@RequestMapping("/inventory11")
 public class InventoryController {
 
     @Autowired

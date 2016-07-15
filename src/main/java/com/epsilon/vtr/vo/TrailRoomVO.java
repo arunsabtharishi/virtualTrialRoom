@@ -17,6 +17,8 @@ public class TrailRoomVO {
 
     private boolean emailSent;
 
+    private byte[] profileTrailPhoto;
+
     private String base64EncodedForProfileTrailPhoto;
 
 }

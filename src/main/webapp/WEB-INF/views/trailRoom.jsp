@@ -52,17 +52,15 @@
                               <th>Profile First Name</th>
                               <th>Profile Last Name</th>
                               <th>Profile Email Address</th>
-                              <th>Profile Email Sent</th>
                               <th width="20%"></th>
                           </tr>
                       </thead>
                       <tbody>
                           <tr ng-repeat="u in ctrl.trailRooms">
                               <td><span ng-bind="u.id"></span></td>
-                              <td><span ng-bind="u.fristName"></span></td>
+                              <td><span ng-bind="u.firstName"></span></td>
                               <td><span ng-bind="u.lastName"></span></td>
                               <td><span ng-bind="u.emailAddress"></span></td>
-                              <td><span ng-bind="u.emailSent"></span></td>
                               <td><img alt="image" height="150" width="150" ng-src="data:image/jpeg;base64,{{u.base64EncodedForProfileTrailPhoto}}" /></td>
                               <td>
                               <button type="button" ng-click="ctrl.sendEmail(u.id)" class="btn btn-success custom-width">Send Email </button>  <button type="button" ng-click="ctrl.remove(u.id)" class="btn btn-danger custom-width">Remove</button>

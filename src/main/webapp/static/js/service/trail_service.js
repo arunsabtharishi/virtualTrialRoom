@@ -24,6 +24,7 @@ App.factory('TrailService', ['$http', '$q', function($http, $q){
                                     },
                                     function(errResponse){
                                         console.error('Error while fetching Items');
+                                        self.fetchAllTrailRoomItems
                                         return $q.reject(errResponse);
                                     }
                             );

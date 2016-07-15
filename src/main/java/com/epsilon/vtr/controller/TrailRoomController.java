@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.epsilon.vtr.model.Profile;
 import com.epsilon.vtr.model.TrailRoom;
 import com.epsilon.vtr.service.InventoryService;
+import com.epsilon.vtr.service.ProfileService;
 import com.epsilon.vtr.service.TrialRoomService;
 import com.epsilon.vtr.vo.TrailRoomVO;
 
@@ -33,6 +35,9 @@ public class TrailRoomController {
     TrialRoomService trialRoomService;
 
     @Autowired
+    ProfileService profileService;
+
+    @Autowired
     MessageSource messageSource;
 
 
@@ -45,6 +50,10 @@ public class TrailRoomController {
         for(TrailRoom trailRoom:trailRooms) {
             TrailRoomVO trailRoomVO = new TrailRoomVO();
             trailRoomVO.setId(trailRoom.getId());
+            Profile profile = profileService.findById(trailRoom.getProfileId());
+            trailRoomVO.setFirstName(profile.getFirstName());
+            trailRoomVO.setLastName(profile.getLastName());
+            trailRoomVO.setEmailAddress(profile.getEmailAddress());
             if(trailRoom.getTrailProfilePhoto()!=null) {
                 try {
                     byte[] encodeBase64 = Base64.encodeBase64(trailRoom.getTrailProfilePhoto());
@@ -72,9 +81,6 @@ public class TrailRoomController {
         TrailRoom trailRoom = trialRoomService.findById(id);
         try {
             trialRoomService.sendEmail(trailRoom);
-            trailRoom = trialRoomService.findById(id);
-            trailRoom.setEmailSent(true);
-            trialRoomService.saveTrailRoom(trailRoom);
         } catch (MessagingException e) {
             return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
