@@ -41,7 +41,6 @@ public class TrailRoomController {
     MessageSource messageSource;
 
 
-
     @RequestMapping(value = { "/fetchAllTrailRoomItems/" }, method = RequestMethod.GET)
     public ResponseEntity<List<TrailRoomVO>> fetchAllTrailRoomItems() {
 

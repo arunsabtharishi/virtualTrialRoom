@@ -1,31 +1,18 @@
 package com.epsilon.vtr.controller;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.LocalDate;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
-import static org.mockito.Mockito.atLeastOnce;
-
 import org.springframework.context.MessageSource;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
-import com.epsilon.vtr.controller.ProfileController1;
 import com.epsilon.vtr.model.Employee;
 import com.epsilon.vtr.service.EmployeeService;
 import com.epsilon.vtr.vo.EmployeeVO;
@@ -38,9 +25,6 @@ public class AppControllerTest {
 
     @Mock
     MessageSource message;
-
-    @InjectMocks
-    ProfileController1 appController;
 
     @Spy
     List<Employee> employees = new ArrayList<Employee>();

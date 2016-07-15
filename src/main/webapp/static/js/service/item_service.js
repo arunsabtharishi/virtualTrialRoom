@@ -40,7 +40,7 @@ App.factory('InventoryService', ['$http', '$q', function($http, $q){
                     fd.append('name',item.name)
                     fd.append('price',item.price)
 
-                    return $http.post('http://localhost:8080/visualTrailRoom/inventory/items', fd,{
+                    return $http.post('http://localhost:8080/visualTrailRoom/inventory/items/', fd,{
                                 transformRequest: angular.identity,
                                 headers: {'Content-Type': undefined}
                             })

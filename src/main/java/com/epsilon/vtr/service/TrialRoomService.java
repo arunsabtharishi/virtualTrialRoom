@@ -16,8 +16,6 @@ public interface TrialRoomService {
 
     public TrailRoom findById(int id);
 
-    public void trialRoom(Profile profile) throws IOException;
-
     public void trialRoom() throws IOException;
 
     public List<TrailRoom> findAllTrailsFor(Profile profile);

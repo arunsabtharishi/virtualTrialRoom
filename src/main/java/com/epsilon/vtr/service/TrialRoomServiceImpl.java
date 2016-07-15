@@ -37,8 +37,6 @@ import com.epsilon.vtr.vo.TrailRoomVO;
 @Transactional
 public class TrialRoomServiceImpl implements TrialRoomService {
 
-    String path = "src/main/resources/temp/";
-
     @Autowired
     private InventoryService inventoryService;
 
@@ -61,65 +59,6 @@ public class TrialRoomServiceImpl implements TrialRoomService {
     public void saveTrailRoom(TrailRoom trailRoom) {
         trailRoomDao.saveTrailRoom(trailRoom);
     }
-
-    @Override
-    public void trialRoom(Profile profile) throws IOException {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String sourceFile = "src/main/resources/haarcascade/haarcascade_frontalface_alt.xml";
-        File f = new File("C:\\Users\\vbora\\Desktop\\vtr\\haarcascade_frontalface_alt.xml");
-        String profilePhotoFileName = profile.getProfilePhotoName();
-        String profilePhotoFileExtension = determineFileExtension(profile.getProfilePhotoContentType());
-        File profilePhotoTempFile = File.createTempFile(profilePhotoFileName,"."+profilePhotoFileExtension);
-        FileOutputStream fos = new FileOutputStream(profilePhotoTempFile);
-        fos.write(profile.getProfilePhoto());
-        fos.close();
-        CascadeClassifier faceDetector = new CascadeClassifier(f.getAbsolutePath());
-        Mat image = Highgui.imread(profilePhotoTempFile.getAbsolutePath());
-
-        MatOfRect detections = new MatOfRect();
-        faceDetector.detectMultiScale(image, detections);
-
-        System.out.println(String.format("Detected %s faces", detections.toArray().length));
-
-        List<Item> findAllItems = inventoryService.findAllItems();
-        findAllItems.forEach( item -> {
-            int x = 0;
-            int y= 0;
-            for (Rect rect : detections.toArray()) {
-                x = rect.x/3;
-                y = rect.y + rect.height + (rect.y + rect.height) /10;
-            }
-            List<TrailRoom> trailRoomForThisProfile = trailRoomDao.findAllTrailsByProfileAndItemId(profile.getId(), item.getId());
-            if(trailRoomForThisProfile.size() ==0) {
-                File trialFile =  doAction(profilePhotoTempFile,item,x, y);
-                if(trialFile.exists()) {
-                    TrailRoom trailRoom = new TrailRoom();
-                    trailRoom.setProfileId(profile.getId());
-                    trailRoom.setItemId(item.getId());
-                    try {
-                        byte[] byteArray = Files.readAllBytes(trialFile.toPath());
-                        System.out.println(trialFile.length());
-                        BufferedImage overlay = ImageIO.read(trialFile);
-
-                        overlay = createResizedCopy(overlay, x+y+((x+y)/2), x+y+((x+y)/4), false);
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        ImageIO.write(overlay, "png", baos);
-                        byte[] bytes = baos.toByteArray();
-                        trailRoom.setTrailProfilePhoto(bytes);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    trailRoom.setTrailProfilePhotoContentType("png");
-
-                    trailRoom.setTrailProfilePhotoName("combined");
-                    trailRoomDao.saveTrailRoom(trailRoom);
-                    trialFile.deleteOnExit();
-                }
-            }
-        });
-        profilePhotoTempFile.deleteOnExit();
-    }
-
 
     @Override
     public void trialRoom() throws IOException {
@@ -212,29 +151,6 @@ public class TrialRoomServiceImpl implements TrialRoomService {
                 // Save as new image
                 File tempFile = File.createTempFile(inputFile.getName()+"-combined",".png");
                 ImageIO.write(combined, "PNG", tempFile);
-
-
-
-            /* load source images
-            File shirtFile = new File("C:\\Users\\vbora\\Desktop\\vtr\\shirt.jpg");
-            //BufferedImage image = ImageIO.read(inputFile);
-
-            BufferedImage overlay = ImageIO.read(shirtFile);
-
-            overlay = createResizedCopy(overlay, x+y+((x+y)/2), x+y+((x+y)/4), false);
-
-
-            int w = Math.max(image.getWidth(), overlay.getWidth());
-            int h = Math.max(image.getHeight(), overlay.getHeight());
-            BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-
-            Graphics g = combined.getGraphics();
-            g.drawImage(image, 0, 0, null);
-            g.drawImage(overlay, x/2, y, null);
-
-            File tempFile = File.createTempFile(inputFile.getName()+"-combined",".png");
-            ImageIO.write(combined, "PNG", tempFile);
-            */
 
             return tempFile;
         }catch(Exception e)

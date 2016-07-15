@@ -35,7 +35,7 @@ public class ProfileServiceImpl implements ProfileService {
         Profile entity = dao.findById(profile.getId());
         if(entity!=null){
             entity.setFirstName(profile.getFirstName());
-            entity.setFirstName(profile.getLastName());
+            entity.setLastName(profile.getLastName());
             entity.setSex(profile.getSex());
             entity.setEmailAddress(profile.getEmailAddress());
             entity.setBirthDate(profile.getBirthDate());

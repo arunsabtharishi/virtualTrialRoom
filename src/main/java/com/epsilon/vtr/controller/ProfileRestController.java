@@ -109,41 +109,6 @@ public class ProfileRestController {
         return new ResponseEntity<ProfileVO>(profileVO, HttpStatus.OK);
     }
 
-    /*
-     * This method will be called on form submission, handling POST request for
-     * saving employee in database. It also validates the user input
-     */
-    @RequestMapping(value = { "/profiles3" }, method = RequestMethod.POST)
-    //public ResponseEntity<Void> saveProfile(@PathVariable("file") MultipartFile file, UriComponentsBuilder ucBuilder) {
-    public ResponseEntity<Void> saveProfile(@RequestParam("file") MultipartFile file) {
-        ProfileVO profileVO = new ProfileVO();
-        Profile profile = new Profile();
-        if(!service.isProfileUnique(profileVO.getId())){
-            FieldError ssnError =new FieldError("profile","ssn",messageSource.getMessage("non.unique.ssn", new String[]{profileVO.getFirstName()}, Locale.getDefault()));
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
-        profile.setFirstName(profileVO.getFirstName());
-        profile.setLastName(profileVO.getLastName());
-        profile.setSex(profileVO.getSex());
-        profile.setEmailAddress(profileVO.getEmailAddress());
-        profile.setBirthDate(new Date());
-        if(profileVO.getPhoto() !=null && !profileVO.getPhoto().getFile().isEmpty()) {
-            try {
-                profile.setProfilePhoto(profileVO.getPhoto().getFile().getBytes());
-                profile.setProfilePhotoContentType(profileVO.getPhoto().getFile().getContentType());
-                profile.setProfilePhotoName(profileVO.getPhoto().getFile().getName());
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        service.saveProfile(profile);
-
-        return new ResponseEntity<Void>(HttpStatus.OK);
-
-    }
-
 
     @RequestMapping(value = { "/profiles" }, method = RequestMethod.POST)
     //public ResponseEntity<Void> saveProfile(@PathVariable("file") MultipartFile file, UriComponentsBuilder ucBuilder) {
@@ -175,72 +140,6 @@ public class ProfileRestController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/profiles/{id}").buildAndExpand(profile.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-
-    }
-
-
-    @RequestMapping(value = { "/profiles1/" }, method = RequestMethod.POST,headers={MediaType.MULTIPART_FORM_DATA_VALUE,MediaType.ALL_VALUE},consumes={MediaType.MULTIPART_FORM_DATA_VALUE,MediaType.ALL_VALUE})
-    //public ResponseEntity<Void> saveProfile(@PathVariable("file") MultipartFile file, UriComponentsBuilder ucBuilder) {
-    public ResponseEntity<Void> saveProfile1(@RequestBody ProfileVO profileVO, UriComponentsBuilder ucBuilder) {
-        //ProfileVO profileVO = new ProfileVO();
-        Profile profile = new Profile();
-        if(!service.isProfileUnique(profileVO.getId())){
-            FieldError ssnError =new FieldError("profile","ssn",messageSource.getMessage("non.unique.ssn", new String[]{profileVO.getFirstName()}, Locale.getDefault()));
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
-        profile.setFirstName(profileVO.getFirstName());
-        profile.setLastName(profileVO.getLastName());
-        profile.setSex(profileVO.getSex());
-        profile.setEmailAddress(profileVO.getEmailAddress());
-        profile.setBirthDate(new Date());
-        if(profileVO.getPhoto() !=null && !profileVO.getPhoto().getFile().isEmpty()) {
-            try {
-                profile.setProfilePhoto(profileVO.getPhoto().getFile().getBytes());
-                profile.setProfilePhotoContentType(profileVO.getPhoto().getFile().getContentType());
-                profile.setProfilePhotoName(profileVO.getPhoto().getFile().getName());
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        service.saveProfile(profile);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/profiles/{id}").buildAndExpand(profile.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-
-    }
-
-
-    @RequestMapping(value = { "/profiles2" }, method = RequestMethod.POST)
-    //public ResponseEntity<Void> saveProfile(@PathVariable("file") MultipartFile file, UriComponentsBuilder ucBuilder) {
-    public ResponseEntity<Void> saveProfile2(@RequestBody ProfileVO profileVO) {
-        //ProfileVO profileVO = new ProfileVO();
-        Profile profile = new Profile();
-        if(!service.isProfileUnique(profileVO.getId())){
-            FieldError ssnError =new FieldError("profile","ssn",messageSource.getMessage("non.unique.ssn", new String[]{profileVO.getFirstName()}, Locale.getDefault()));
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
-        profile.setFirstName(profileVO.getFirstName());
-        profile.setLastName(profileVO.getLastName());
-        profile.setSex(profileVO.getSex());
-        profile.setEmailAddress(profileVO.getEmailAddress());
-        profile.setBirthDate(new Date());
-        if(profileVO.getPhoto() !=null && !profileVO.getPhoto().getFile().isEmpty()) {
-            try {
-                profile.setProfilePhoto(profileVO.getPhoto().getFile().getBytes());
-                profile.setProfilePhotoContentType(profileVO.getPhoto().getFile().getContentType());
-                profile.setProfilePhotoName(profileVO.getPhoto().getFile().getName());
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        service.saveProfile(profile);
-
-        return new ResponseEntity<Void>(HttpStatus.OK);
 
     }
 

@@ -49,7 +49,7 @@ App.controller('TrailRoomController', ['$scope', 'TrailService', function($scope
                   );
           };
 
-          self.generateTrailRoomItems();
+          self.fetchAllTrailRoomItems();
 
           self.submit = function() {
               console.log('Generating Trail Room');

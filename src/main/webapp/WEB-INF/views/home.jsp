@@ -13,9 +13,9 @@
   <body ng-app="myApp" class="ng-cloak">
     <div class="tabbable tabs-left">
           <ul class="nav nav-tabs">
-            <li><a ui-sref="profiles">Profiles</a></li>
-            <li><a ui-sref="inventory">Items</a></li>
-            <li><a ui-sref="trailRoom">Notification</a></li>
+            <li><a ui-sref="profiles"><h3>Profiles</h3></a></li>
+            <li><a ui-sref="inventory"><h3>Items</h3></a></li>
+            <li><a ui-sref="trailRoom"><h3>Notification</h3></a></li>
         </ul>
        </div>
 
