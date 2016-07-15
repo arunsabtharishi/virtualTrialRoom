@@ -6,18 +6,18 @@ import com.epsilon.vtr.model.Employee;
 
 public interface EmployeeService {
 
-	Employee findById(int id);
-	
-	void saveEmployee(Employee employee);
-	
-	void updateEmployee(Employee employee);
-	
-	void deleteEmployeeBySsn(String ssn);
+    Employee findById(int id);
 
-	List<Employee> findAllEmployees(); 
-	
-	Employee findEmployeeBySsn(String ssn);
+    void saveEmployee(Employee employee);
 
-	boolean isEmployeeSsnUnique(Integer id, String ssn);
-	
+    void updateEmployee(Employee employee);
+
+    void deleteEmployeeBySsn(String ssn);
+
+    List<Employee> findAllEmployees();
+
+    Employee findEmployeeBySsn(String ssn);
+
+    boolean isEmployeeSsnUnique(Integer id, String ssn);
+
 }

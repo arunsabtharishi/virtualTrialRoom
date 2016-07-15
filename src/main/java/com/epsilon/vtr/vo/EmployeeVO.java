@@ -19,6 +19,10 @@ public class EmployeeVO {
 
     private FileBucket photo;
 
+    private byte[] photoStream;
+
+    private String base64Encoded;
+
     public int getId() {
         return id;
     }
@@ -65,6 +69,22 @@ public class EmployeeVO {
 
     public void setPhoto(FileBucket photo) {
         this.photo = photo;
+    }
+
+    public byte[] getPhotoStream() {
+        return this.photoStream;
+    }
+
+    public void setPhotoStream(byte[] photoStream) {
+        this.photoStream = photoStream;
+    }
+
+    public String getBase64Encoded() {
+        return this.base64Encoded;
+    }
+
+    public void setBase64Encoded(String base64Encoded) {
+        this.base64Encoded = base64Encoded;
     }
 
     @Override

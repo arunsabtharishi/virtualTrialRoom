@@ -1,11 +1,11 @@
 <html>
 
     <body>
-        <h3>Dear ${order.customerInfo.name}, thank you for placing order.</h3>
+        <h3>Dear ${trailRoomVO.firstName}, Check out how you look on our new arrivals.</h3>
 
         <div>
-            Your order id is : ${order.orderId}.
+            <img alt="image" height="150" width="150" src="data:image/jpeg;base64,${trailRoomVO.base64EncodedForProfileTrailPhoto}" />
         </div>
-        <span>Sent using FreeMarker Template</span>
+        <span>Price : $100.00</span>
     </body>
 </html>

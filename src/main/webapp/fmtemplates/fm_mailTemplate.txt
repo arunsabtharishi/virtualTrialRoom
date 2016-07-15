@@ -1,0 +1,11 @@
+<html>
+
+    <body>
+        <h3>Dear ${trailRoomVO.firstName}, Check out how you look on our new arrivals.</h3>
+
+        <div>
+            <img alt="image" height="150" width="150" src="data:image/png;base64,${trailRoomVO.base64EncodedForProfileTrailPhoto}" />
+        </div>
+        <span>Price : $100.00</span>
+    </body>
+</html>

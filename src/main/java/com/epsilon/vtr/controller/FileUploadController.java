@@ -44,7 +44,7 @@ public class FileUploadController {
         binder.setValidator(multiFileValidator);
     }
 
-    @RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/welcome" }, method = RequestMethod.GET)
     public String getHomePage(ModelMap model) {
         return "welcome";
     }

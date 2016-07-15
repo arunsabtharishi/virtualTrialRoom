@@ -48,8 +48,8 @@ public class AppConfig {
         // Using gmail.
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
-        mailSender.setUsername("sri.bora@gmail.com");
-        mailSender.setPassword("okqwer321");
+        mailSender.setUsername("irvingfashionstore@gmail.com");
+        mailSender.setPassword("epsilon123");
 
         Properties javaMailProperties = new Properties();
         javaMailProperties.put("mail.smtp.starttls.enable", "true");

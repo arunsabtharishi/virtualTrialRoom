@@ -1,6 +1,7 @@
 package com.epsilon.vtr.configuration;
 
 import javax.servlet.MultipartConfigElement;
+import javax.servlet.Filter;
 import javax.servlet.ServletRegistration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -39,5 +40,11 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
     private static final long MAX_REQUEST_SIZE = 20971520; // 20MB : Total request size containing Multi part.
 
     private static final int FILE_SIZE_THRESHOLD = 0; // Size threshold after which files will be written to disk
+
+    @Override
+    protected Filter[] getServletFilters() {
+        Filter [] singleton = { new CORSFilter() };
+        return singleton;
+    }
 
 }

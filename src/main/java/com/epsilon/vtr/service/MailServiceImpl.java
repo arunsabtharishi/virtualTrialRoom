@@ -3,6 +3,7 @@ package com.epsilon.vtr.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.velocity.app.VelocityEngine;
@@ -17,6 +18,8 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
 import com.epsilon.vtr.model.ProductOrder;
+import com.epsilon.vtr.model.TrailRoom;
+import com.epsilon.vtr.vo.TrailRoomVO;
 
 import freemarker.template.Configuration;
 
@@ -35,14 +38,27 @@ public class MailServiceImpl implements MailService{
 
 
     @Override
-    public void sendEmail(Object object) {
+    public void sendEmail(TrailRoomVO trailRoomVO) throws MessagingException {
 
-        ProductOrder order = (ProductOrder)object;
-
-        MimeMessagePreparator preparator = getMessagePreparator(order);
+        MimeMessagePreparator preparator = getMessagePreparator(trailRoomVO);
 
         try {
-            mailSender.send(preparator);
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setSubject("Your Trail on Dress with Templates");
+            helper.setFrom("irvingfashionstore@gmail.com");
+            helper.setTo("vbora@epsilon.com");
+
+            Map<String, Object> model = new HashMap<String, Object>();
+            model.put("trailRoomVO", trailRoomVO);
+
+            String text = geFreeMarkerTemplateContent(model);//Use Freemarker or Velocity
+            System.out.println("Template content : "+text);
+            text = "<img alt=\"image\" height=\"150\" width=\"150\" src=\"data:image/png;base64,"+trailRoomVO.getBase64EncodedForProfileTrailPhoto()+"\" />";
+            // use the true flag to indicate you need a multipart message
+            helper.setText(text, true);
+            message.setContent(text, "text/html; charset=utf-8");
+            mailSender.send(message);
             System.out.println("Message has been sent.............................");
         }
         catch (MailException ex) {
@@ -50,19 +66,20 @@ public class MailServiceImpl implements MailService{
         }
     }
 
-    private MimeMessagePreparator getMessagePreparator(final ProductOrder order){
+    private MimeMessagePreparator getMessagePreparator(final TrailRoomVO trailRoomVO){
 
+        System.out.println("Preparing Message");
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
-                helper.setSubject("Your order on Demoapp with Templates");
-                helper.setFrom("sri.bora@gmail.com");
-                helper.setTo(order.getCustomerInfo().getEmail());
+                helper.setSubject("Your Trail on Dress with Templates");
+                helper.setFrom("irvingfashionstore@gmail.com");
+                helper.setTo(trailRoomVO.getEmailAddress());
 
                 Map<String, Object> model = new HashMap<String, Object>();
-                model.put("order", order);
+                model.put("trailRoomVO", trailRoomVO);
 
                 String text = geFreeMarkerTemplateContent(model);//Use Freemarker or Velocity
                 System.out.println("Template content : "+text);

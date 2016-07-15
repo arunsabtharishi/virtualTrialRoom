@@ -27,10 +27,10 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan(basePackages = "com.epsilon.vtr")
 public class HelloWorldConfiguration extends WebMvcConfigurerAdapter {
 
-    @Bean(name = "multipartResolver")
+    /*@Bean(name = "multipartResolver")
     public StandardServletMultipartResolver resolver() {
         return new StandardServletMultipartResolver();
-    }
+    }*/
 
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -54,26 +54,6 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter {
                 "/static/");
     }
 
-    @Bean
-    public JavaMailSender getMailSender() {
-        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-
-        // Using gmail.
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(587);
-        mailSender.setUsername("sri.bora@gmail.com");
-        mailSender.setPassword("okmijn67");
-
-        Properties javaMailProperties = new Properties();
-        javaMailProperties.put("mail.smtp.starttls.enable", "true");
-        javaMailProperties.put("mail.smtp.auth", "true");
-        javaMailProperties.put("mail.transport.protocol", "smtp");
-        javaMailProperties.put("mail.debug", "true");
-
-        mailSender.setJavaMailProperties(javaMailProperties);
-        return mailSender;
-    }
-
     /*
      * FreeMarker configuration.
      */
@@ -83,19 +63,5 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter {
         bean.setTemplateLoaderPath("/fmtemplates/");
         return bean;
     }
-
-    /*
-     * Velocity configuration.
-     */
-/*    @Bean
-    public VelocityEngine getVelocityEngine() throws VelocityException, IOException {
-        VelocityEngineFactory factory = new VelocityEngineFactory();
-        Properties props = new Properties();
-        props.put("resource.loader", "class");
-        props.put("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-
-        factory.setVelocityProperties(props);
-        return factory.createVelocityEngine();
-    }*/
 
 }

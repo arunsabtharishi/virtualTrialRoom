@@ -44,8 +44,13 @@ public class Employee {
     @Column(name = "SSN", unique=true, nullable = false)
     private String ssn;
 
-    @Column(name = "PHOTO", nullable = true)
-    private byte[] photo;
+    @Column(name="PROFILE_PHOTO_NAME",nullable = true)
+    private String profilePhotoName;
+    @Column(name = "PROFILE_PHOTO", nullable = true)
+    private byte[] profilePhoto;
+
+    @Column(name="PROFILE_PHOTO_CONTENT_TYPE",nullable = true)
+    private String profilePhotoContentType;
 
     public int getId() {
         return id;
@@ -87,12 +92,28 @@ public class Employee {
         this.ssn = ssn;
     }
 
-    public byte[] getPhoto() {
-        return photo;
+    public String getProfilePhotoName() {
+        return this.profilePhotoName;
     }
 
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
+    public void setProfilePhotoName(String profilePhotoName) {
+        this.profilePhotoName = profilePhotoName;
+    }
+
+    public byte[] getProfilePhoto() {
+        return this.profilePhoto;
+    }
+
+    public void setProfilePhoto(byte[] profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
+
+    public String getProfilePhotoContentType() {
+        return this.profilePhotoContentType;
+    }
+
+    public void setProfilePhotoContentType(String profilePhotoContentType) {
+        this.profilePhotoContentType = profilePhotoContentType;
     }
 
     @Override
