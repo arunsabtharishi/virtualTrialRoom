@@ -1,5 +1,8 @@
 package com.epsilon.vtr.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,26 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     public void saveItem(Item item) {
+        dao.saveItem(item);
+    }
+
+    public void manualSave() {
+        Item item = new Item();
+        item.setName("tshirt");
+
+        File file = new File("C:\\Users\\asabtharishi\\Desktop\\files\\files\\new.jpg");
+
+        try {
+            byte[] data = Files.readAllBytes(file.toPath());
+            item.setPhoto(data);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
+        item.setPhotoContentType("JPG");
+        item.setPrice(1000.00);
         dao.saveItem(item);
     }
 

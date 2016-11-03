@@ -90,7 +90,7 @@ public class MailServiceImpl implements MailService{
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setSubject("Your Trail on Dress with Templates");
             helper.setFrom("irvingfashionstore@gmail.com");
-            helper.setTo("sri.bora@gmail.com");
+            helper.setTo(trailRoomVO.getEmailAddress());
 
             Map<String, Object> model = new HashMap<String, Object>();
             model.put("trailRoomVO", trailRoomVO);

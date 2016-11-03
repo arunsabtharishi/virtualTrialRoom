@@ -64,7 +64,7 @@ public class TrialRoomServiceImpl implements TrialRoomService {
     public void trialRoom() throws IOException {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         String sourceFile = "src/main/resources/haarcascade/haarcascade_frontalface_alt.xml";
-        File f = new File("C:\\Users\\vbora\\Desktop\\vtr\\haarcascade_frontalface_alt.xml");
+        File f = new File("C:\\Users\\asabtharishi\\workspace1\\vtr\\vtr\\target\\classes\\haarcascade_frontalface_alt.xml");
         List<Profile> profiles = profileService.findAllProfiles();
         for(Profile profile:profiles) {
             String profilePhotoFileName = profile.getProfilePhotoName();

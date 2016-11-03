@@ -17,6 +17,8 @@ public interface InventoryService {
 
     List<Item> findAllItems();
 
+    void manualSave();
+
     boolean isItemNameUnique(Integer id, String itemName);
 
 }

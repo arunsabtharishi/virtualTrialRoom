@@ -37,11 +37,15 @@ public class InventoryRestController {
     @Autowired
     MessageSource messageSource;
 
+    @RequestMapping(value = {"/items/manualSave"}, method = RequestMethod.POST)
+    public void manualSave()  {
+        service.manualSave();
+    }
+
 
 
     @RequestMapping(value = { "/items/" }, method = RequestMethod.GET)
     public ResponseEntity<List<ItemVO>> listItems() {
-
         List<Item> items = service.findAllItems();
         List<ItemVO> itemVOList = new ArrayList<>();
         for(Item item:items) {
